@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            height: 100vh;
+            padding-top: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            width: 80%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .post {
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .post:hover {
+            background-color: #e6e6e6;
+        }
+
+        .post h2 {
+            margin: 0;
+            font-size: 22px;
+            color: #333;
+        }
+
+        .post p {
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Dictionary - Word List</h1>
+        <div id="wordList"></div>
+    </div>
+
+    <script>
+        let dictionaryData = [];
+
+        // Fetch the dictionary data from the external JSON link
+        fetch('https://raw.githubusercontent.com/itzfew/Telegram-bot/refs/heads/main/dictionary.json')
+            .then(response => response.json())
+            .then(data => {
+                dictionaryData = data.words;  // Store the words in a variable
+                displayWordList();
+            })
+            .catch(error => {
+                console.error("Error loading dictionary data:", error);
+            });
+
+        // Function to display the list of words
+        function displayWordList() {
+            const wordListDiv = document.getElementById('wordList');
+            wordListDiv.innerHTML = '';
+
+            dictionaryData.forEach(word => {
+                const postDiv = document.createElement('div');
+                postDiv.classList.add('post');
+
+                // Create the title (word) and excerpt (meaning/content)
+                const wordTitle = document.createElement('h2');
+                wordTitle.innerText = word.word;
+
+                const excerpt = document.createElement('p');
+                excerpt.innerText = word.content ? word.content.substring(0, 100) + "..." : (word.englishMeaning ? word.englishMeaning.substring(0, 100) + "..." : "No excerpt available");
+
+                // Create the link for each word to its detail page
+                postDiv.appendChild(wordTitle);
+                postDiv.appendChild(excerpt);
+                postDiv.onclick = () => {
+                    window.location.href = `word.html?word=${encodeURIComponent(word.word.toLowerCase())}`;
+                };
+
+                // Append post to the word list
+                wordListDiv.appendChild(postDiv);
+            });
+        }
+    </script>
+
+</body>
+</html>
