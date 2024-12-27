@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary - Word Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            height: 100vh;
+            padding-top: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            width: 80%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .word-detail {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .image {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .audio {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .audio audio {
+            width: 100%;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-size: 16px;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="wordTitle">Loading...</h1>
+        <div id="wordDetails" class="word-detail"></div>
+        <div id="imageContainer" class="image"></div>
+        <div id="audioContainer" class="audio"></div>
+        <div class="back-link">
+            <a href="index.html">Back to Word List</a>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const wordParam = urlParams.get('word');
+        
+        let dictionaryData = [];
+
+        // Fetch the dictionary data from the external JSON link
+        fetch('https://raw.githubusercontent.com/itzfew/Telegram-bot/refs/heads/main/dictionary.json')
+            .then(response => response.json())
+            .then(data => {
+                dictionaryData = data.words;  // Store the words in a variable
+                displayWordDetails(wordParam);
+            })
+            .catch(error => {
+                console.error("Error loading dictionary data:", error);
+            });
+
+        // Function to display the word details based on the word query parameter
+        function displayWordDetails(wordParam) {
+            const wordData = dictionaryData.find(word => word.word.toLowerCase() === wordParam);
+
+            if (wordData) {
+                document.getElementById('wordTitle').innerText = wordData.word;
+
+                let wordDetailsHTML = '';
+
+                // English Meaning
+                if (wordData.englishMeaning) {
+                    wordDetailsHTML += `<p><strong>English:</strong> ${wordData.englishMeaning}</p>`;
+                }
+
+                // Kashmiri Meaning
+                if (wordData.kashmiriMeaning) {
+                    wordDetailsHTML += `<p><strong>Kashmiri:</strong> ${wordData.kashmiriMeaning}</p>`;
+                }
+
+                // Urdu Meaning
+                if (wordData.urduMeaning) {
+                    wordDetailsHTML += `<p><strong>Urdu:</strong> ${wordData.urduMeaning}</p>`;
+                }
+
+                // Content
+                if (wordData.content) {
+                    wordDetailsHTML += `<p><strong>Content:</strong> ${wordData.content}</p>`;
+                }
+
+                // Image
+                if (wordData.image) {
+                    wordDetailsHTML += `<div class="image"><img src="${wordData.image}" alt="${wordData.word}"></div>`;
+                }
+
+                // Audio
+                if (wordData.audio) {
+                    wordDetailsHTML += `<div class="audio"><audio controls><source src="${wordData.audio}" type="audio/mp3">Your browser does not support the audio element.</audio></div>`;
+                }
+
+                document.getElementById('wordDetails').innerHTML = wordDetailsHTML;
+            } else {
+                document.getElementById('wordTitle').innerText = 'Word not found';
+                document.getElementById('wordDetails').innerHTML = 'Sorry, this word is not available in the dictionary.';
+            }
+        }
+    </script>
+
+</body>
+</html>
