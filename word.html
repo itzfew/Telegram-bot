@@ -72,6 +72,28 @@
         .urdu {
             font-family: 'Urdu Typesetting', 'Tahoma', sans-serif;
         }
+
+        .random-words {
+            margin-top: 40px;
+        }
+
+        .random-words ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .random-words li {
+            margin-bottom: 15px;
+        }
+
+        .random-words a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .random-words a:hover {
+            text-decoration: underline;
+        }
     </style>
     <!-- Adding simple Urdu font -->
     <link href="https://fonts.googleapis.com/css2?family=Urdu+Typesetting&display=swap" rel="stylesheet">
@@ -84,6 +106,12 @@
     <div id="audioContainer" class="audio"></div>
     <div class="back-link">
         <a href="index.html">Back to Word List</a>
+    </div>
+
+    <div id="randomWordsContainer" class="random-words" style="display: none;">
+        <h2>Word Not Found</h2>
+        <p>Sorry, the word you are looking for could not be found. Here are some random words you might be interested in:</p>
+        <ul id="randomWordList"></ul>
     </div>
 
     <script>
@@ -159,9 +187,33 @@
             } else {
                 document.getElementById('wordTitle').innerText = 'Word not found';
                 document.getElementById('wordDetails').innerHTML = 'Sorry, this word is not available in the dictionary.';
-                document.getElementById('imageContainer').style.display = 'none';
-                document.getElementById('audioContainer').style.display = 'none';
+
+                // Generate and show random words list
+                showRandomWords();
             }
+        }
+
+        // Function to show random words and their links
+        function showRandomWords() {
+            const randomWordsContainer = document.getElementById('randomWordsContainer');
+            const randomWordList = document.getElementById('randomWordList');
+            const randomWords = getRandomWords(10);  // Get 10 random words
+
+            randomWordList.innerHTML = '';  // Clear existing list
+
+            randomWords.forEach(word => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<a href="?word=${word.word.toLowerCase()}">${word.word}</a> - ${word.content}`;
+                randomWordList.appendChild(listItem);
+            });
+
+            randomWordsContainer.style.display = 'block';  // Show the random words section
+        }
+
+        // Function to get random words from the dictionary
+        function getRandomWords(count) {
+            const shuffled = dictionaryData.sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);  // Get the first 'count' random words
         }
     </script>
 
