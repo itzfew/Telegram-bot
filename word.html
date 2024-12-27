@@ -18,10 +18,11 @@
             text-align: center;
             font-size: 30px;
             color: #000000; /* Black text color */
+            font-family: Arial, sans-serif; /* Regular font for word title */
         }
 
         .word-detail {
-            font-size: 13px;
+            font-size: 18px;
             color: #000000; /* Black text color */
             line-height: 1.6;
             margin-bottom: 20px;
@@ -64,16 +65,16 @@
 
         /* Kashmiri font */
         .kashmiri {
-            font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Tahoma', sans-serif;
+            font-family: 'Noto Sans', sans-serif;
         }
 
-        /* Urdu font */
+        /* Simple Urdu font */
         .urdu {
-            font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Tahoma', sans-serif;
+            font-family: 'Urdu Typesetting', 'Tahoma', sans-serif;
         }
     </style>
-    <!-- Adding fonts for Kashmiri and Urdu -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+    <!-- Adding simple Urdu font -->
+    <link href="https://fonts.googleapis.com/css2?family=Urdu+Typesetting&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -116,12 +117,12 @@
                     wordDetailsHTML += `<p><strong>English:</strong> ${wordData.englishMeaning}</p>`;
                 }
 
-                // Kashmiri Meaning (Arabic script)
+                // Kashmiri Meaning (Standard font for Kashmiri)
                 if (wordData.kashmiriMeaning) {
                     wordDetailsHTML += `<p class="kashmiri"><strong>Kashmiri:</strong> ${wordData.kashmiriMeaning}</p>`;
                 }
 
-                // Urdu Meaning (Urdu script)
+                // Simple Urdu Meaning (Simple Urdu font)
                 if (wordData.urduMeaning) {
                     wordDetailsHTML += `<p class="urdu"><strong>Urdu:</strong> ${wordData.urduMeaning}</p>`;
                 }
