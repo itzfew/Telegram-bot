@@ -5,37 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dictionary - Word Details</title>
     <style>
-        /* General body styles */
+        /* General body and font styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #ffffff;
-            color: #000000; /* Black text color */
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.6;
         }
 
         h1 {
             text-align: center;
-            font-size: 30px;
-            color: #000000; /* Black text color */
-            font-family: Arial, sans-serif; /* Regular font for word title */
+            font-size: 36px;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+
+        /* Header */
+        .header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        /* Container for the word details */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .word-title {
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 20px;
         }
 
         .word-detail {
             font-size: 18px;
-            color: #000000; /* Black text color */
-            line-height: 1.6;
             margin-bottom: 20px;
+            color: #555;
         }
 
-        .image {
-            text-align: center;
-            margin-top: 20px;
+        .content-section {
+            margin-bottom: 40px;
         }
 
-        .image img {
+        .content-section img {
             max-width: 100%;
-            height: auto;
             border-radius: 8px;
         }
 
@@ -44,10 +67,42 @@
             text-align: center;
         }
 
-        .audio audio {
-            width: 100%;
+        /* Random word section */
+        .random-words {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
         }
 
+        .random-words h2 {
+            text-align: center;
+            font-size: 24px;
+            color: #3498db;
+        }
+
+        .random-words ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        .random-words li {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .random-words a {
+            text-decoration: none;
+            color: #3498db;
+            font-size: 18px;
+        }
+
+        .random-words a:hover {
+            text-decoration: underline;
+        }
+
+        /* Links and back button */
         .back-link {
             text-align: center;
             margin-top: 20px;
@@ -55,59 +110,69 @@
 
         .back-link a {
             text-decoration: none;
-            color: #4CAF50;
-            font-size: 16px;
+            color: #3498db;
+            font-size: 18px;
         }
 
         .back-link a:hover {
             text-decoration: underline;
         }
 
-        /* Kashmiri font */
-        .kashmiri {
-            font-family: 'Noto Sans', sans-serif;
-        }
-
-        /* Simple Urdu font */
+        /* Fonts for Urdu and Kashmiri */
         .urdu {
             font-family: 'Urdu Typesetting', 'Tahoma', sans-serif;
+            font-size: 20px;
+            direction: rtl;
         }
 
-        .random-words {
-            margin-top: 40px;
+        .kashmiri {
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 20px;
         }
 
-        .random-words ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
+        /* Add some responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
 
-        .random-words li {
-            margin-bottom: 15px;
-        }
+            .word-title {
+                font-size: 28px;
+            }
 
-        .random-words a {
-            text-decoration: none;
-            color: #007bff;
-        }
+            .word-detail {
+                font-size: 16px;
+            }
 
-        .random-words a:hover {
-            text-decoration: underline;
+            .back-link a {
+                font-size: 16px;
+            }
         }
     </style>
-    <!-- Adding simple Urdu font -->
+    <!-- Adding Urdu and Kashmiri fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Urdu+Typesetting&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <h1 id="wordTitle">Loading...</h1>
-    <div id="wordDetails" class="word-detail"></div>
-    <div id="imageContainer" class="image"></div>
-    <div id="audioContainer" class="audio"></div>
-    <div class="back-link">
-        <a href="index.html">Back to Word List</a>
+    <div class="header">
+        Dictionary - Word Details
     </div>
 
+    <div class="container">
+        <h1 id="wordTitle">Loading...</h1>
+        <div id="wordDetails" class="word-detail"></div>
+
+        <div id="imageContainer" class="content-section"></div>
+
+        <div id="audioContainer" class="audio"></div>
+
+        <div class="back-link">
+            <a href="index.html">Back to Word List</a>
+        </div>
+    </div>
+
+    <!-- Random words section, hidden by default -->
     <div id="randomWordsContainer" class="random-words" style="display: none;">
         <h2>Word Not Found</h2>
         <p>Sorry, the word you are looking for could not be found. Here are some random words you might be interested in:</p>
