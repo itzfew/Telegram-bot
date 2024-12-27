@@ -11,18 +11,18 @@
             margin: 0;
             padding: 20px;
             background-color: #ffffff;
-            color: #333;
+            color: #000000; /* Black text color */
         }
 
         h1 {
             text-align: center;
             font-size: 30px;
-            color: #333;
+            color: #000000; /* Black text color */
         }
 
         .word-detail {
             font-size: 18px;
-            color: #555;
+            color: #000000; /* Black text color */
             line-height: 1.6;
             margin-bottom: 20px;
         }
@@ -61,7 +61,19 @@
         .back-link a:hover {
             text-decoration: underline;
         }
+
+        /* Kashmiri font */
+        .kashmiri {
+            font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Tahoma', sans-serif;
+        }
+
+        /* Urdu font */
+        .urdu {
+            font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Tahoma', sans-serif;
+        }
     </style>
+    <!-- Adding fonts for Kashmiri and Urdu -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -104,14 +116,14 @@
                     wordDetailsHTML += `<p><strong>English:</strong> ${wordData.englishMeaning}</p>`;
                 }
 
-                // Kashmiri Meaning
+                // Kashmiri Meaning (Arabic script)
                 if (wordData.kashmiriMeaning) {
-                    wordDetailsHTML += `<p><strong>Kashmiri:</strong> ${wordData.kashmiriMeaning}</p>`;
+                    wordDetailsHTML += `<p class="kashmiri"><strong>Kashmiri:</strong> ${wordData.kashmiriMeaning}</p>`;
                 }
 
-                // Urdu Meaning
+                // Urdu Meaning (Urdu script)
                 if (wordData.urduMeaning) {
-                    wordDetailsHTML += `<p><strong>Urdu:</strong> ${wordData.urduMeaning}</p>`;
+                    wordDetailsHTML += `<p class="urdu"><strong>Urdu:</strong> ${wordData.urduMeaning}</p>`;
                 }
 
                 // Content (Additional info)
