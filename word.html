@@ -9,26 +9,9 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             background-color: #ffffff;
             color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            flex-direction: column;
-            height: 100vh;
-            padding-top: 20px;
-        }
-
-        /* Container for the word details */
-        .container {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            width: 80%;
-            max-width: 900px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
         }
 
         h1 {
@@ -41,11 +24,12 @@
             font-size: 18px;
             color: #555;
             line-height: 1.6;
+            margin-bottom: 20px;
         }
 
         .image {
-            margin-top: 20px;
             text-align: center;
+            margin-top: 20px;
         }
 
         .image img {
@@ -81,14 +65,12 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1 id="wordTitle">Loading...</h1>
-        <div id="wordDetails" class="word-detail"></div>
-        <div id="imageContainer" class="image"></div>
-        <div id="audioContainer" class="audio"></div>
-        <div class="back-link">
-            <a href="index.html">Back to Word List</a>
-        </div>
+    <h1 id="wordTitle">Loading...</h1>
+    <div id="wordDetails" class="word-detail"></div>
+    <div id="imageContainer" class="image"></div>
+    <div id="audioContainer" class="audio"></div>
+    <div class="back-link">
+        <a href="index.html">Back to Word List</a>
     </div>
 
     <script>
@@ -137,16 +119,24 @@
                     wordDetailsHTML += `<p><strong>Content:</strong> ${wordData.content}</p>`;
                 }
 
-                // Image (If available)
+                // Image (If available and not empty)
                 if (wordData.image) {
-                    document.getElementById('imageContainer').innerHTML = `<img src="${wordData.image}" alt="${wordData.word}">`;
+                    if (wordData.image !== "") {
+                        document.getElementById('imageContainer').innerHTML = `<img src="${wordData.image}" alt="${wordData.word}">`;
+                    } else {
+                        document.getElementById('imageContainer').style.display = 'none';
+                    }
                 } else {
                     document.getElementById('imageContainer').style.display = 'none';
                 }
 
-                // Audio (If available)
+                // Audio (If available and not empty)
                 if (wordData.audio) {
-                    document.getElementById('audioContainer').innerHTML = `<audio controls><source src="${wordData.audio}" type="audio/mp3">Your browser does not support the audio element.</audio>`;
+                    if (wordData.audio !== "") {
+                        document.getElementById('audioContainer').innerHTML = `<audio controls><source src="${wordData.audio}" type="audio/mp3">Your browser does not support the audio element.</audio>`;
+                    } else {
+                        document.getElementById('audioContainer').style.display = 'none';
+                    }
                 } else {
                     document.getElementById('audioContainer').style.display = 'none';
                 }
